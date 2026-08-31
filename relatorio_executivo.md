@@ -50,8 +50,10 @@ Para eliminar a subjetividade e o tempo excessivo gasto com consultas manuais de
 
 ---
 
-## 🚀 5. Próximos Passos & Evoluções Recomendadas
+## 🚀 5. Roadmap e Recomendações de Implantação para a Operação
 
-1. Integrar variáveis de localização geográfica (estado/região) para capturar variações tributárias e de frete interestadual.
-2. Desenvolver interface web (via Streamlit ou Dashboard interativo) para uso na ponta pelos avaliadores de concessionárias.
-3. Implementar pipeline de retreinamento contínuo mensal com novos dados de leilões e transações de mercado.
+Para transformar o modelo preditivo em uma ferramenta corporativa de uso contínuo pelas equipes de compras e vendas, recomendo as seguintes fases de implantação:
+
+1. **Camada de Geolocalização:** Incorporar variáveis de estado e região às cotações, precificando diferenças de alíquotas fiscais (IPVA) e custos logísticos de frete interestadual.
+2. **Interface Operacional na Ponta:** Desenvolver uma aplicação web leve (Streamlit ou Dashboard corporativo) para que os avaliadores de pátio e concessionárias insiram os dados do veículo pelo celular e recebam a recomendação de oferta em tempo real.
+3. **Governança de Dados & MLOps:** Estabelecer uma rotina de retreinamento mensal do modelo com os dados consolidados dos fechamentos de leilões e histórico de vendas do mês anterior, prevenindo desvios decorrentes de flutuações sazonais do mercado.
