@@ -10,7 +10,7 @@
 
 Este projeto teve como objetivo analisar a dinâmica de precificação no mercado de veículos seminovos e desenvolver uma solução automatizada para apoiar a tomada de decisão comercial na entrada e saída de estoque.
 
-A partir do tratamento de dados transacionais, identificamos padrões de desvalorização, fatores multiplicadores de margem e construímos um modelo preditivo capaz de estimar o valor justo de mercado de um veículo em tempo real.
+A partir do tratamento de dados transacionais, identificamos padrões de desvalorização, fatores multiplicadores de margem e construímos modelos preditivos capazes de estimar o valor justo de mercado de um veículo em tempo real.
 
 ---
 
@@ -36,19 +36,22 @@ A partir do tratamento de dados transacionais, identificamos padrões de desvalo
 
 ---
 
-## 🤖 4. Solução Preditiva (Machine Learning)
+## 🤖 4. Solução Preditiva & Benchmark de Machine Learning
 
-Para eliminar o tempo excessivo gasto com consultas manuais de mercado, desenvolvemos um modelo de **Regressão Linear** com as seguintes características:
+Para eliminar a subjetividade e o tempo excessivo gasto com consultas manuais de mercado, comparamos dois modelos preditivos:
 
-- **Variáveis Consideradas:** Ano de Fabricação, Marca, Tipo de Carroceria, Nota de Conservação e Quilometragem.
-- **Capacidade Explicativa ($R^2$):** **`65.39%`** de toda a variação de preços explicada com apenas 5 atributos essenciais.
-- **Erro Médio Absoluto ($MAE$):** **`$ 3.564,90`**, com altíssima aderência na faixa central do mercado ($ 10.000 a $ 25.000).
-- **Entregável Operacional:** **Simulador Interativo em Tempo Real** integrado ao fluxo de avaliação de veículos.
+| Modelo | R² (Capacidade Explicativa) | MAE (Erro Médio Absoluto) | RMSE ($) | Tempo | Papel Estratégico no Negócio |
+| :--- | :---: | :---: | :---: | :---: | :--- |
+| **Regressão Linear (Baseline)** | `65.39%` | `$ 3.564,90` | `$ 5.280,40` | `6.47s` | Explicabilidade rápida e sensibilidade de preço |
+| **Random Forest Regressor (Ensemble)** | `71.72%` | `$ 2.971,04` | `$ 4.772,73` | `70.99s` | **Modelo Vencedor** (redução de erro de ~$593/carro) |
+
+### 🚗 Entregável Operacional
+- **Simulador Comercial em Tempo Real:** Ferramenta interativa onde o avaliador insere os dados do carro e recebe a precificação estimada, além de uma **Faixa Segura de Oferta (com margem garantida de 10% a 15%)**.
 
 ---
 
 ## 🚀 5. Próximos Passos & Evoluções Recomendadas
 
-1. Integrar variáveis de localização geográfica (estado/região) para capturar variações tributárias e de frete.
-2. Desenvolver interface web amigável (via Streamlit ou Power BI) para uso direto pelos avaliadores de concessionárias.
-3. Testar modelos ensemble (Random Forest e XGBoost) para ganho adicional de acurácia em segmentos premium e de luxo.
+1. Integrar variáveis de localização geográfica (estado/região) para capturar variações tributárias e de frete interestadual.
+2. Desenvolver interface web (via Streamlit ou Dashboard interativo) para uso na ponta pelos avaliadores de concessionárias.
+3. Implementar pipeline de retreinamento contínuo mensal com novos dados de leilões e transações de mercado.

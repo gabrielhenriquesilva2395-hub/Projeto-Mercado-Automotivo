@@ -1,28 +1,29 @@
 # 🚗 Análise Estratégica & Modelo Preditivo de Precificação Automotiva
 
-Projeto de análise de dados e machine learning desenvolvido para simular um cenário real de inteligência de negócios no setor automotivo e de varejo de veículos seminovos.
+Projeto de inteligência de negócios, ciência de dados e machine learning desenvolvido para simular um cenário real de estratégia comercial e precificação no setor automotivo e de seminovos.
 
 ---
 
 ## 📌 1. Visão Geral do Projeto & Problema de Negócio
 
 No mercado automotivo, a precificação correta de veículos usados é crítica para:
-1. **Evitar dinheiro parado em estoque** (precificação acima do mercado).
-2. **Evitar queima de margem e prejuízo** (venda abaixo do valor ótimo).
+1. **Evitar dinheiro parado em estoque** (veículos com preço acima do mercado perdem giro e depreciam).
+2. **Evitar queima desnecessária de margem** (venda abaixo do valor justo de mercado).
 
-Este projeto responde a perguntas estratégicas de diretoria e implementa um modelo preditivo automatizado para recomendar o preço ideal de venda de um veículo no momento de sua avaliação.
+Este projeto responde a perguntas estratégicas de diretoria comercial e implementa um sistema de inteligência preditiva com **benchmark de dois modelos de Machine Learning (Regressão Linear vs. Random Forest Regressor)** para recomendar o preço ideal de revenda no momento da avaliação de entrada.
 
 ---
 
-## 🗂️ Estrutura do Projeto
+## 🗂️ Estrutura do Repositório
 
 ```text
 projeto-mercado-automotivo/
 ├── data/
-│   └── car_prices.csv                          # Base com +550.000 transações
+│   └── car_prices.csv                          # Base histórica com +550.000 transações
 ├── 01_analise_exploratoria_e_negocios.ipynb     # Análise de Negócios, KPIs e Storytelling
-├── 02_modelo_preditivo_precificacao.ipynb        # Modelo de Machine Learning (Regressão)
-├── README.md                                   # Apresentação do Portfólio
+├── 02_modelo_preditivo_precificacao.ipynb        # Modelagem Preditiva (Linear vs Random Forest)
+├── relatorio_executivo.md                       # Relatório para Diretoria / Decisores
+├── README.md                                   # Apresentação do Projeto
 └── .venv/                                      # Ambiente virtual Python
 ```
 
@@ -31,37 +32,46 @@ projeto-mercado-automotivo/
 ## 📊 2. Principais Perguntas de Negócio Respondidas
 
 - **Eficiência Comercial:** Comparação entre o Preço Praticado e a Tabela de Mercado (*Manheim Market Report - MMR*).
-- **Curva de Depreciação:** Relação entre idade do veículo, quilometragem acumulada e valor residual.
-- **Fator Conservação:** Impacto financeiro do estado físico do veículo no valor de revenda.
-- **Ranking de Marcas:** Identificação de fabricantes com maior liquidez e retenção de valor.
+- **Curva de Depreciação:** Impacto conjunto da idade do veículo e quilometragem acumulada.
+- **Fator Conservação:** Impacto financeiro do estado físico do veículo (notas de conservação) no valor de revenda.
+- **Liquidez por Marca:** Identificação dos fabricantes com maior volume e retenção de valor residual.
 
 ---
 
-## 🤖 3. Modelo Preditivo (Machine Learning)
+## 🤖 3. Modelagem Preditiva & Benchmark de Machine Learning
 
-- **Algoritmo:** Regressão Linear & Random Forest Regressor.
-- **Variáveis de Entrada (Features):** Ano, Fabricante, Tipo de Carroceria, Condição Física e Quilometragem.
-- **Variável Alvo (Target):** Preço de Venda (`sellingprice`).
-- **Métricas de Sucesso:** $R^2$ (Capacidade explicativa) e $MAE$ (Erro Médio em dólares).
+Comparamos duas abordagens para avaliar o equilíbrio entre interpretabilidade e precisão:
+
+| Modelo | Tipo | R² (Capacidade Explicativa) | MAE (Erro Médio em $) | RMSE ($) | Tempo de Treino | Papel Estratégico |
+| :--- | :--- | :---: | :---: | :---: | :---: | :--- |
+| **Regressão Linear** | *Baseline Paramétrico* | **`65.39%`** | **`$ 3.564,90`** | `$ 5.280,40` | `6.47s` | Linha de base rápida e explicabilidade direta |
+| **Random Forest Regressor** | *Ensemble Não-Linear* | **`71.72%`** | **`$ 2.971,04`** | `$ 4.772,73` | `70.99s` | **Modelo Vencedor** (redução de erro de ~$600/carro) |
+
+### 🔍 Principais Drivers de Precificação (*Feature Importance*):
+1. **Quilometragem Acumulada (`odometer`):** Responde por mais de **50% do peso preditivo**.
+2. **Ano de Fabricação (`year`):** Segundo maior impacto (~**11%**).
+3. **Prêmios de Segmento & Marcas de Luxo (`make_Mercedes-Benz`, `make_Lexus`):** Valorização não-linear por prestígio de marca.
+4. **Estado de Conservação Física (`condition`):** Fator multiplicador de margem líquida.
 
 ---
 
-## 🛠️ Tecnologias Utilizadas
+## 🛠️ Tecnologias & Ferramentas
 
 - **Linguagem:** Python 3.12+
 - **Manipulação de Dados:** `pandas`, `numpy`
 - **Visualização & Storytelling:** `matplotlib`, `seaborn`
-- **Machine Learning:** `scikit-learn`
-- **Ambiente:** Jupyter Notebooks & Antigravity IDE
+- **Machine Learning:** `scikit-learn` (`LinearRegression`, `RandomForestRegressor`, `metrics`)
+- **Ambiente:** Jupyter Notebooks
 
 ---
 
 ## 🚀 Como Executar Localmente
 
-1. Ative o ambiente virtual:
+1. Clone o repositório e ative o ambiente virtual:
    ```bash
+   cd projeto-mercado-automotivo
    .\.venv\Scripts\activate
    ```
 2. Abra os notebooks:
-   - [01_analise_exploratoria_e_negocios.ipynb](01_analise_exploratoria_e_negocios.ipynb)
-   - [02_modelo_preditivo_precificacao.ipynb](02_modelo_preditivo_precificacao.ipynb)
+   - `01_analise_exploratoria_e_negocios.ipynb`
+   - `02_modelo_preditivo_precificacao.ipynb`
