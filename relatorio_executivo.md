@@ -10,7 +10,9 @@
 
 Este projeto teve como objetivo analisar a dinâmica de precificação no mercado de veículos seminovos e desenvolver uma solução automatizada para apoiar a tomada de decisão comercial na entrada e saída de estoque.
 
-A partir do tratamento de dados transacionais, identificamos padrões de desvalorização, fatores multiplicadores de margem e construímos modelos preditivos capazes de estimar o valor justo de mercado de um veículo em tempo real.
+A partir do tratamento de dados transacionais, identificamos padrões de desvalorização, fatores multiplicadores de valor e construímos modelos preditivos com benchmark para estimar o preço de venda esperado de um veículo no momento da avaliação.
+
+> 💡 **Nota Metodológica:** Como o dataset não contém custos de aquisição ou taxas de intermediação, a análise adota o *Manheim Market Report (MMR)* como referência de mercado, não como cálculo de margem financeira efetiva.
 
 ---
 
@@ -20,7 +22,7 @@ A partir do tratamento de dados transacionais, identificamos padrões de desvalo
 - **Ticket Médio por Veículo:** `$ 13.845,22`.
 - **Quilometragem Média:** `66.454 milhas` (~107.000 km).
 - **Nota Média de Conservação Física:** `30.8 / 50` (Padrão Regular/Bom).
-- **Aderência à Tabela de Mercado (MMR):** `-0.73%` (Desconto médio controlado praticado nas negociações).
+- **Aderência à Tabela de Mercado (MMR):** `-0.73%` (Desconto médio controlado praticado nas negociações frente ao MMR).
 
 ---
 
@@ -28,7 +30,7 @@ A partir do tratamento de dados transacionais, identificamos padrões de desvalo
 
 ### 1. O Fator Multiplicador da Conservação Física
 - Veículos com notas de conservação no topo da escala (acima de 40/50) apresentam uma **valorização mediana superior a 35%** frente a veículos de conservação média.
-- **Recomendação Estratégica:** Implementar um checklist operacional de preparação estética (polimento, higienização e pequenos reparos) antes da exposição do veículo, maximizando a margem líquida na revenda.
+- **Recomendação Estratégica:** Implementar um checklist operacional de preparação estética (polimento, higienização e pequenos reparos) antes da exposição do veículo, maximizando o valor de revenda.
 
 ### 2. Curva de Depreciação e Giro de Estoque
 - Veículos com 2 a 4 anos de fabricação sofrem a maior pressão de preço decorrente da entrada em massa de frotas desmobilizadas de locadoras.
@@ -38,15 +40,15 @@ A partir do tratamento de dados transacionais, identificamos padrões de desvalo
 
 ## 🤖 4. Solução Preditiva & Benchmark de Machine Learning
 
-Para eliminar a subjetividade e o tempo excessivo gasto com consultas manuais de mercado, comparamos dois modelos preditivos:
+Para apoiar os avaliadores com estimativas consistentes de mercado, comparamos dois modelos preditivos:
 
 | Modelo | R² (Capacidade Explicativa) | MAE (Erro Médio Absoluto) | RMSE ($) | Tempo | Papel Estratégico no Negócio |
 | :--- | :---: | :---: | :---: | :---: | :--- |
-| **Regressão Linear (Baseline)** | `65.39%` | `$ 3.564,90` | `$ 5.280,40` | `6.47s` | Explicabilidade rápida e sensibilidade de preço |
-| **Random Forest Regressor (Ensemble)** | `71.72%` | `$ 2.971,04` | `$ 4.772,73` | `70.99s` | **Modelo Vencedor** (redução de erro de ~$593/carro) |
+| **Regressão Linear (Baseline)** | `65.39%` | `$ 3.564,90` | `$ 5.280,40` | `6.47s` | Explicabilidade direta e linha de base paramétrica |
+| **Random Forest Regressor (Ensemble)** | `71.72%` | `$ 2.971,04` | `$ 4.772,73` | `70.99s` | **Modelo Selecionado** (redução de erro de ~$593/veículo) |
 
 ### 🚗 Entregável Operacional
-- **Simulador Comercial em Tempo Real:** Ferramenta interativa onde o avaliador insere os dados do carro e recebe a precificação estimada, além de uma **Faixa Segura de Oferta (com margem garantida de 10% a 15%)**.
+- **Simulador Comercial em Tempo Real:** Ferramenta interativa onde o avaliador insere os dados do veículo e recebe a estimativa de preço esperado de revenda, além de uma **Faixa Segura de Oferta sugerida**.
 
 ---
 
