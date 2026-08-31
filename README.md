@@ -4,6 +4,14 @@ Projeto de inteligência de negócios, ciência de dados e machine learning dese
 
 ---
 
+## 🔗 Acesso Rápido aos Arquivos do Projeto
+
+* 📊 **[Notebook 01: Análise Exploratória, KPIs & Storytelling de Negócios](01_analise_exploratoria_e_negocios.ipynb)**
+* 🤖 **[Notebook 02: Modelagem Preditiva & Benchmark (Regressão Linear vs. Random Forest)](02_modelo_preditivo_precificacao.ipynb)**
+* 📑 **[Relatório Executivo para Decisores & Diretoria Comercial](relatorio_executivo.md)**
+
+---
+
 ## 📌 1. Visão Geral do Projeto & Problema de Negócio
 
 No mercado automotivo, a precificação correta de veículos usados é crítica para:
@@ -45,7 +53,7 @@ Comparamos duas abordagens para avaliar o equilíbrio entre interpretabilidade e
 | Modelo | Tipo | R² (Capacidade Explicativa) | MAE (Erro Médio em $) | RMSE ($) | Tempo de Treino | Papel Estratégico |
 | :--- | :--- | :---: | :---: | :---: | :---: | :--- |
 | **Regressão Linear** | *Baseline Paramétrico* | **`65.39%`** | **`$ 3.564,90`** | `$ 5.280,40` | `6.47s` | Linha de base rápida e explicabilidade direta |
-| **Random Forest Regressor** | *Ensemble Não-Linear* | **`71.72%`** | **`$ 2.971,04`** | `$ 4.772,73` | `70.99s` | **Modelo Vencedor** (redução de erro de ~$600/carro) |
+| **Random Forest Regressor** | *Ensemble Não-Linear* | **`71.72%`** | **`$ 2.971,04`** | `$ 4.772,73` | `70.99s` | **Modelo Vencedor** (redução de erro de ~$593/carro) |
 
 ### 🔍 Principais Drivers de Precificação (*Feature Importance*):
 1. **Quilometragem Acumulada (`odometer`):** Responde por mais de **50% do peso preditivo**.
@@ -72,6 +80,7 @@ Comparamos duas abordagens para avaliar o equilíbrio entre interpretabilidade e
    cd projeto-mercado-automotivo
    .\.venv\Scripts\activate
    ```
-2. Abra os notebooks:
-   - `01_analise_exploratoria_e_negocios.ipynb`
-   - `02_modelo_preditivo_precificacao.ipynb`
+2. Acesse diretamente os notebooks navegáveis:
+   - 📊 **[Abrir Notebook 01 — Análise Exploratória e Negócios](01_analise_exploratoria_e_negocios.ipynb)**
+   - 🤖 **[Abrir Notebook 02 — Modelo Preditivo & Benchmark de ML](02_modelo_preditivo_precificacao.ipynb)**
+   - 📑 **[Abrir Relatório Executivo](relatorio_executivo.md)**
