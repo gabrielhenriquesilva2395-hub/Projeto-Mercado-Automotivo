@@ -1,87 +1,64 @@
-# 🚗 Análise Estratégica & Modelo Preditivo de Precificação Automotiva
+# 🚗 Análise de mercado automotivo e estimativa de preços
 
-Projeto de inteligência de negócios, ciência de dados e machine learning desenvolvido para simular um cenário real de estratégia comercial e precificação no setor automotivo e de seminovos.
+Projeto de portfólio em análise de dados e machine learning aplicado a vendas de veículos usados e seminovos. O trabalho reúne indicadores comerciais, análise exploratória e modelos preditivos para apoiar a avaliação de preços.
 
----
-
-## 🔗 Acesso Rápido aos Arquivos do Projeto
+## 🔗 Acesso rápido
 
 * 📊 **[Notebook 01: Análise Exploratória, KPIs & Storytelling de Negócios](01_analise_exploratoria_e_negocios.ipynb)**
 * 🤖 **[Notebook 02: Modelagem Preditiva & Benchmark (Regressão Linear vs. Random Forest)](02_modelo_preditivo_precificacao.ipynb)**
 * 📑 **[Relatório Executivo para Decisores & Diretoria Comercial](relatorio_executivo.md)**
 
----
+## 📌 Problema de negócio
 
-## 📌 1. Visão Geral do Projeto & Problema de Negócio
+Como avaliar se os preços praticados estão próximos da referência de mercado e quais características dos veículos estão associadas ao preço de venda? O projeto explora essas perguntas e compara dois modelos para estimar o preço de venda de um veículo a partir de seus atributos.
 
-No mercado automotivo, estimar com precisão o valor de mercado de veículos usados é crítico para:
-1. **Evitar retenção excessiva em estoque** (veículos precificados acima do mercado perdem giro e depreciam).
-2. **Apoiar a tomada de decisão comercial** na entrada e saída de veículos, garantindo competitividade frente aos benchmarks do setor.
+O *Manheim Market Report* (MMR) é usado como **referência de preço**, não como medida de margem. A base não contém custos de aquisição, comissões e demais despesas necessárias para calcular a margem financeira efetiva.
 
-Este projeto responde a perguntas estratégicas de inteligência comercial e implementa um sistema com **benchmark de dois modelos de Machine Learning (Regressão Linear vs. Random Forest Regressor)** para estimar o preço de venda esperado no momento da avaliação de entrada.
+## 📊 Análises e indicadores
 
-> 💡 **Nota Metodológica:** Como a base histórica não contém dados de custos de aquisição ou comissões, a análise utiliza o *Manheim Market Report (MMR)* como referência primária de mercado, e não como cálculo de margem financeira efetiva.
+- **Preço praticado versus MMR:** diferença absoluta e percentual entre o preço de venda e a referência de mercado.
+- **Perfil das transações:** volume de vendas por fabricante, ticket médio e características dos veículos analisados.
+- **Ano, quilometragem e conservação:** relação dessas variáveis com o preço de venda observado.
+- **Recomendações operacionais:** propostas de acompanhamento de preços e estoque apresentadas no relatório executivo. A base de vendas não mede o tempo de permanência de cada veículo em estoque.
 
----
+## 🤖 Modelagem preditiva
 
-## 🗂️ Estrutura do Repositório
+O segundo notebook usa ano, fabricante, tipo de carroceria, estado de conservação e quilometragem para prever o preço de venda. Os modelos foram avaliados com divisão de 80% dos registros para treino e 20% para teste.
+
+| Modelo | R² no teste | Erro médio absoluto (MAE) | RMSE |
+| :--- | ---: | ---: | ---: |
+| Regressão Linear | 65,39% | US$ 3.564,90 | US$ 5.280,40 |
+| Random Forest Regressor | 71,72% | US$ 2.971,04 | US$ 4.772,73 |
+
+Os valores acima são os resultados registrados no notebook. O Random Forest apresentou menor erro médio nesse teste. O notebook também contém uma função de **simulação** que recebe as características de um veículo e mostra as estimativas dos dois modelos.
+
+## 🗂️ Arquivos publicados
 
 ```text
-projeto-mercado-automotivo/
-├── data/
-│   └── car_prices.csv                          # Base histórica com +550.000 transações
-├── 01_analise_exploratoria_e_negocios.ipynb     # Análise de Negócios, KPIs e Storytelling
-├── 02_modelo_preditivo_precificacao.ipynb        # Modelagem Preditiva (Linear vs Random Forest)
-├── relatorio_executivo.md                       # Relatório para Diretoria / Decisores
-└── README.md                                   # Apresentação do Projeto
+Projeto-Mercado-Automotivo/
+├── 01_analise_exploratoria_e_negocios.ipynb
+├── 02_modelo_preditivo_precificacao.ipynb
+├── relatorio_executivo.md
+└── README.md
 ```
 
----
+## 🛠️ Tecnologias
 
-## 📊 2. Principais Perguntas de Negócio Respondidas
+Python, pandas, NumPy, Matplotlib, Seaborn, scikit-learn e Jupyter Notebook.
 
-- **Eficiência Comercial:** Comparação entre o Preço Praticado e a Tabela de Mercado (*Manheim Market Report - MMR*).
-- **Curva de Depreciação:** Impacto conjunto da idade do veículo e quilometragem acumulada.
-- **Fator Conservação:** Impacto do estado físico do veículo (notas de conservação) no valor esperado de revenda.
-- **Volume & Retenção de Valor por Marca:** Identificação dos fabricantes com maior volume de transações e melhor retenção de valor residual.
+## 🚀 Como executar localmente
 
----
+Os notebooks leem `data/car_prices.csv`. **A base não está incluída neste repositório**; para executar o projeto, é necessário obter uma cópia autorizada da base e colocá-la nesse caminho. A fonte e as condições de uso da base devem ser documentadas junto ao arquivo antes de sua redistribuição.
 
-## 🤖 3. Modelagem Preditiva & Benchmark de Machine Learning
+Depois de preparar a base, instale as dependências e abra os notebooks na ordem indicada:
 
-Comparamos duas abordagens para avaliar o equilíbrio entre interpretabilidade e precisão:
+```bash
+python -m pip install pandas numpy matplotlib seaborn scikit-learn jupyter
+jupyter notebook
+```
 
-| Modelo | Tipo | R² (Capacidade Explicativa) | MAE (Erro Médio em $) | RMSE ($) | Tempo de Treino | Papel Estratégico |
-| :--- | :--- | :---: | :---: | :---: | :---: | :--- |
-| **Regressão Linear** | *Baseline Paramétrico* | **`65.39%`** | **`$ 3.564,90`** | `$ 5.280,40` | `6.47s` | Linha de base rápida e explicabilidade direta |
-| **Random Forest Regressor** | *Ensemble Não-Linear* | **`71.72%`** | **`$ 2.971,04`** | `$ 4.772,73` | `70.99s` | **Modelo Selecionado** (redução de erro de ~$593/veículo) |
+- 📊 **[Abrir Notebook 01 — Análise Exploratória e Negócios](01_analise_exploratoria_e_negocios.ipynb)**
+- 🤖 **[Abrir Notebook 02 — Modelo Preditivo & Benchmark de ML](02_modelo_preditivo_precificacao.ipynb)**
+- 📑 **[Abrir Relatório Executivo](relatorio_executivo.md)**
 
-### 🔍 Principais Drivers de Precificação (*Feature Importance*):
-1. **Quilometragem Acumulada (`odometer`):** Responde por mais de **50% do peso preditivo**.
-2. **Ano de Fabricação (`year`):** Segundo maior impacto (~**11%**).
-3. **Prêmios de Segmento & Marcas de Luxo (`make_Mercedes-Benz`, `make_Lexus`):** Valorização não-linear por prestígio de marca.
-4. **Estado de Conservação Física (`condition`):** Fator multiplicador de valor na avaliação.
-
----
-
-## 🛠️ Tecnologias & Ferramentas
-
-- **Linguagem:** Python 3.12+
-- **Manipulação de Dados:** `pandas`, `numpy`
-- **Visualização & Storytelling:** `matplotlib`, `seaborn`
-- **Machine Learning:** `scikit-learn` (`LinearRegression`, `RandomForestRegressor`, `metrics`)
-- **Ambiente:** Jupyter Notebooks
-
----
-
-## 🚀 Como Executar Localmente
-
-1. Clone o repositório e ative o ambiente virtual:
-   ```bash
-   cd projeto-mercado-automotivo
-   .\.venv\Scripts\activate
-   ```
-2. Acesse diretamente os notebooks navegáveis:
-   - 📊 **[Abrir Notebook 01 — Análise Exploratória e Negócios](01_analise_exploratoria_e_negocios.ipynb)**
-   - 🤖 **[Abrir Notebook 02 — Modelo Preditivo & Benchmark de ML](02_modelo_preditivo_precificacao.ipynb)**
-   - 📑 **[Abrir Relatório Executivo](relatorio_executivo.md)**
+O primeiro notebook não contém resultados de execução salvos. Para visualizar seus gráficos e indicadores, execute suas células após disponibilizar a base de dados.
