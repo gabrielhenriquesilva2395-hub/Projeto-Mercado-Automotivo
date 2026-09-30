@@ -39,6 +39,8 @@ Projeto-Mercado-Automotivo/
 ├── 01_analise_exploratoria_e_negocios.ipynb
 ├── 02_modelo_preditivo_precificacao.ipynb
 ├── relatorio_executivo.md
+├── requirements.txt
+├── .gitignore
 └── README.md
 ```
 
@@ -48,12 +50,14 @@ Python, pandas, NumPy, Matplotlib, Seaborn, scikit-learn e Jupyter Notebook.
 
 ## 🚀 Como executar localmente
 
-Os notebooks leem `data/car_prices.csv`. **A base não está incluída neste repositório**; para executar o projeto, é necessário obter uma cópia autorizada da base e colocá-la nesse caminho. A fonte e as condições de uso da base devem ser documentadas junto ao arquivo antes de sua redistribuição.
+**Fonte dos dados:** [Vehicle Sales Data, publicado por Syed Anwar Afridi no Kaggle](https://www.kaggle.com/datasets/syedanwarafridi/vehicle-sales-data). A cópia utilizada contém 558.837 registros e 16 colunas. Consulte a página da fonte para as condições de uso.
+
+Os notebooks leem `data/car_prices.csv`. **A base não está incluída neste repositório**. Para executar o projeto, baixe `car_prices.csv` da fonte acima e coloque o arquivo em uma pasta `data` na raiz do projeto. Não é necessário publicar a base no GitHub.
 
 Depois de preparar a base, instale as dependências e abra os notebooks na ordem indicada:
 
 ```bash
-python -m pip install pandas numpy matplotlib seaborn scikit-learn jupyter
+python -m pip install -r requirements.txt
 jupyter notebook
 ```
 
@@ -61,4 +65,4 @@ jupyter notebook
 - 🤖 **[Abrir Notebook 02 — Modelo Preditivo & Benchmark de ML](02_modelo_preditivo_precificacao.ipynb)**
 - 📑 **[Abrir Relatório Executivo](relatorio_executivo.md)**
 
-O primeiro notebook não contém resultados de execução salvos. Para visualizar seus gráficos e indicadores, execute suas células após disponibilizar a base de dados.
+Os notebooks contêm resultados de uma execução com a base indicada. Para reproduzir os resultados no seu ambiente, execute as células após disponibilizar a base de dados. Os tempos de treinamento podem variar conforme o computador.

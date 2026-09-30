@@ -1,61 +1,50 @@
-# 📊 Relatório Executivo: Inteligência de Mercado & Precificação Automotiva
+# 📊 Relatório executivo: análise de preços de veículos usados
 
-**Autor:** Gabriel Henrique  
-**Área de Aplicação:** Business Intelligence, Pricing & Analytics  
-**Base Analisada:** +550.000 transações de veículos seminovos e usados  
+**Autor:** Gabriel Henrique
 
----
+**Área de aplicação:** Business Intelligence e análise de dados
 
-## 🎯 1. Sumário Executivo
+**Fonte:** [Vehicle Sales Data, publicado por Syed Anwar Afridi no Kaggle](https://www.kaggle.com/datasets/syedanwarafridi/vehicle-sales-data)
+**Base:** 558.837 registros originais; 536.667 registros após os filtros do notebook de análise exploratória
 
-Este projeto teve como objetivo analisar a dinâmica de precificação no mercado de veículos seminovos e desenvolver uma solução automatizada para apoiar a tomada de decisão comercial na entrada e saída de estoque.
+## 🎯 Objetivo
 
-A partir do tratamento de dados transacionais, identificamos padrões de desvalorização, fatores multiplicadores de valor e construímos modelos preditivos com benchmark para estimar o preço de venda esperado de um veículo no momento da avaliação.
+Analisar preços de venda de veículos usados e seminovos, compará-los à referência de mercado MMR e avaliar modelos que estimam o preço de venda a partir das características de cada veículo. O projeto é uma análise de portfólio; a função de simulação está disponível no notebook de modelagem.
 
-> 💡 **Nota Metodológica:** Como o dataset não contém custos de aquisição ou taxas de intermediação, a análise adota o *Manheim Market Report (MMR)* como referência de mercado, não como cálculo de margem financeira efetiva.
+O MMR é uma **referência de preço**, não uma medida de margem. A base não contém custos de aquisição, comissões ou demais despesas necessárias para calcular lucratividade.
 
----
+## 📈 Indicadores da análise exploratória
 
-## 📈 2. Principais Indicadores do Negócio (KPIs)
+| Indicador | Resultado |
+| :--- | ---: |
+| Soma dos preços de venda dos registros analisados | US$ 7.430.270.930 |
+| Preço médio de venda por veículo | US$ 13.845,22 |
+| Quilometragem média | 66.454 milhas |
+| Nota média de conservação | 30,8 em escala até 50 |
+| Desvio percentual médio do preço de venda em relação ao MMR | -0,73% |
 
-- **Volume Transacionado Analisado:** `$ 7.430.270.930,00` (+7,4 Bilhões de dólares).
-- **Ticket Médio por Veículo:** `$ 13.845,22`.
-- **Quilometragem Média:** `66.454 milhas` (~107.000 km).
-- **Nota Média de Conservação Física:** `30.8 / 50` (Padrão Regular/Bom).
-- **Aderência à Tabela de Mercado (MMR):** `-0.73%` (Desconto médio controlado praticado nas negociações frente ao MMR).
+Esses valores foram recalculados ao executar o [notebook de análise exploratória](01_analise_exploratoria_e_negocios.ipynb) com a base indicada. O desvio em relação ao MMR não permite concluir se as vendas tiveram lucro ou prejuízo.
 
----
+## 🔍 Leituras para decisão
 
-## 🔍 3. Principais Descobertas Estratégicas (Insights de Negócio)
+1. **Conservação e preço:** O gráfico por faixas de conservação mostra como os preços de venda variam entre grupos. A relação observada não demonstra quanto uma preparação estética aumentaria o preço; um checklist de conservação pode ser testado como proposta operacional.
+2. **Ano do veículo:** O preço mediano varia entre anos de fabricação na base. Essa comparação não mede, sozinha, a depreciação de um mesmo veículo ao longo do tempo.
+3. **Volume por fabricante:** O ranking identifica as marcas com mais transações registradas. Para medir giro de estoque, seriam necessários dados de entradas, saídas e tempo de permanência dos veículos.
 
-### 1. O Fator Multiplicador da Conservação Física
-- Veículos com notas de conservação no topo da escala (acima de 40/50) apresentam uma **valorização mediana superior a 35%** frente a veículos de conservação média.
-- **Recomendação Estratégica:** Implementar um checklist operacional de preparação estética (polimento, higienização e pequenos reparos) antes da exposição do veículo, maximizando o valor de revenda.
+## 🤖 Comparação dos modelos
 
-### 2. Curva de Depreciação e Giro de Estoque
-- Veículos com 2 a 4 anos de fabricação sofrem a maior pressão de preço decorrente da entrada em massa de frotas desmobilizadas de locadoras.
-- **Recomendação Estratégica:** Estabelecer limites rígidos de tempo de pátio (SLA de giro de 45 a 60 dias) para modelos de grande volume (Ford, Chevrolet e Nissan) para mitigar perdas por depreciação acumulada.
+O [notebook de modelagem](02_modelo_preditivo_precificacao.ipynb) usa ano, fabricante, tipo de carroceria, conservação e quilometragem para estimar o preço de venda. A avaliação foi feita com divisão aleatória de 80% dos registros para treino e 20% para teste.
 
----
+| Modelo | R² no teste | MAE | RMSE |
+| :--- | ---: | ---: | ---: |
+| Regressão Linear | 65,39% | US$ 3.564,90 | US$ 5.280,40 |
+| Random Forest Regressor | 71,72% | US$ 2.971,04 | US$ 4.772,73 |
 
-## 🤖 4. Solução Preditiva & Benchmark de Machine Learning
+O Random Forest apresentou menor erro médio absoluto nesse teste, uma diferença de cerca de **US$ 594 por veículo** em relação à Regressão Linear. O notebook inclui uma função que mostra estimativas dos dois modelos para veículos informados pelo usuário. Ela não calcula uma margem de compra segura nem foi avaliada em uma operação real.
 
-Para apoiar os avaliadores com estimativas consistentes de mercado, comparamos dois modelos preditivos:
+## 🚀 Próximos passos para uso operacional
 
-| Modelo | R² (Capacidade Explicativa) | MAE (Erro Médio Absoluto) | RMSE ($) | Tempo | Papel Estratégico no Negócio |
-| :--- | :---: | :---: | :---: | :---: | :--- |
-| **Regressão Linear (Baseline)** | `65.39%` | `$ 3.564,90` | `$ 5.280,40` | `6.47s` | Explicabilidade direta e linha de base paramétrica |
-| **Random Forest Regressor (Ensemble)** | `71.72%` | `$ 2.971,04` | `$ 4.772,73` | `70.99s` | **Modelo Selecionado** (redução de erro de ~$593/veículo) |
-
-### 🚗 Entregável Operacional
-- **Simulador Comercial em Tempo Real:** Ferramenta interativa onde o avaliador insere os dados do veículo e recebe a estimativa de preço esperado de revenda, além de uma **Faixa Segura de Oferta sugerida**.
-
----
-
-## 🚀 5. Roadmap e Recomendações de Implantação para a Operação
-
-Para transformar o modelo preditivo em uma ferramenta corporativa de uso contínuo pelas equipes de compras e vendas, recomendo as seguintes fases de implantação:
-
-1. **Camada de Geolocalização:** Incorporar variáveis de estado e região às cotações, precificando diferenças de alíquotas fiscais (IPVA) e custos logísticos de frete interestadual.
-2. **Interface Operacional na Ponta:** Desenvolver uma aplicação web leve (Streamlit ou Dashboard corporativo) para que os avaliadores de pátio e concessionárias insiram os dados do veículo pelo celular e recebam a recomendação de oferta em tempo real.
-3. **Governança de Dados & MLOps:** Estabelecer uma rotina de retreinamento mensal do modelo com os dados consolidados dos fechamentos de leilões e histórico de vendas do mês anterior, prevenindo desvios decorrentes de flutuações sazonais do mercado.
+- Validar o modelo em transações posteriores às usadas no treinamento, para avaliar seu desempenho em outro período.
+- Incorporar custos de aquisição e despesas caso a decisão exija análise de margem ou limite de oferta.
+- Registrar entradas e saídas de estoque para medir tempo de permanência e giro.
+- Testar a função com avaliadores e medir tempo de cotação e qualidade das decisões antes de afirmar ganhos operacionais.
